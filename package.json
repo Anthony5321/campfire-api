@@ -1,0 +1,38 @@
+{
+    "name": "campfire",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "engines": {
+        "node": "16.17.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon app.js",
+        "start": "node app.js",
+        "build": "npm install && npx sequelize-cli db:migrate"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Anthony5321/campfire.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Anthony5321/campfire/issues"
+    },
+    "homepage": "https://github.com/Anthony5321/campfire#readme",
+    "dependencies": {
+        "@ngneat/falso": "^6.4.0",
+        "bcrypt": "^5.1.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "morgan": "^1.10.0",
+        "nodemon": "^2.0.21",
+        "pg": "^8.9.0",
+        "sequelize": "^6.29.0"
+    }
+}
