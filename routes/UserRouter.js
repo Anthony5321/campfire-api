@@ -18,6 +18,6 @@ router.get(
   controller.CheckSession
 )
 router.get('/get/:userid', controller.getUser)
-router.get('/get/Stories/:userid', controller.getUserStories)
+router.get('/get/stories/:userid', controller.getUserStories)
 
 module.exports = router
