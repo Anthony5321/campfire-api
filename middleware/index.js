@@ -23,18 +23,24 @@ const createToken = (payload) => {
 }
 
 const verifyToken = (req, res, next) => {
-  const { token } = res.locals
-  try {
-    let payload = jwt.verify(token, APP_SECRET)
-    if (payload) {
-      return next()
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+    try {
+      let payload = jwt.verify(token, APP_SECRET);
+      if (payload) {
+        res.locals.token = token;
+        return next();
+      }
+      res.status(401).send({ status: 'Error', msg: 'Unauthorized' });
+    } catch (error) {
+      console.log(error);
+      res.status(401).send({ status: 'Error', msg: 'Verify Token Error!' });
     }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
-  } catch (error) {
-    console.log(error)
-    res.status(401).send({ status: 'Error', msg: 'Verify Token Error!' })
+  } else {
+    res.status(401).send({ status: 'Error', msg: 'No token provided' });
   }
-}
+};
 
 const stripToken = (req, res, next) => {
   try {

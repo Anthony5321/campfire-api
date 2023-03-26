@@ -1,4 +1,5 @@
 const { User, Story, Vote } = require('../models');
+const middleware = require('../middleware')
 
 async function getStories(req, res) {
   try {
@@ -28,59 +29,39 @@ const getStoryById = async (req, res, next) => {
 };
 
 
-const createStory = async (req, res, next) => {
+const createStory = async (req, res) => {
   try {
-    const { title, content } = req.body;
-    const authorId = req.user.id;
-    const story = await Story.create({
-      title,
-      content,
-      authorId
-    });
-    res.json(story);
-  } catch (err) {
-    next(err);
+    console.log(req.body); // log the request body
+    const story = await Story.create({...req.body})
+    res.send(story)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error creating story' });
   }
-};
+}
 
-
-const updateStory = async (req, res, next) => {
+const updateStory = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { title, content } = req.body;
-    const authorId = req.user.id;
-    const [numUpdated, updatedStory] = await Story.update(
-      { title, content },
-      {
-        where: { id, authorId },
-        returning: true
-      }
-    );
-    if (numUpdated === 0) {
-      return res.status(404).json({ error: 'Story not found or not owned by user' });
-    }
-    res.json(updatedStory[0]);
-  } catch (err) {
-    next(err);
+    const story = await Story.update(
+      { ...req.body },
+      { where: { id: req.params.id }, returning: true }
+    )
+    res.send(story)
+  } catch (error) {
+    throw error
   }
-};
+}
 
 
-const deleteStory = async (req, res, next) => {
+
+const deleteStory = async (req, res) => {
   try {
-    const { id } = req.params;
-    const authorId = req.user.id;
-    const numDeleted = await Story.destroy({
-      where: { id, authorId }
-    });
-    if (numDeleted === 0) {
-      return res.status(404).json({ error: 'Story not found or not owned by user' });
-    }
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
+    await Story.destroy({ where: { id: req.params.id } })
+    res.send({ msg: 'Story Removed', payload: req.params.id, status: 'Ok' })
+  } catch (error) {
+    throw error
   }
-};
+}
 
 module.exports = {
   getStories,

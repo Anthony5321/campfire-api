@@ -80,17 +80,17 @@ const CheckSession = async (req, res) => {
 }
 
 // const addVote = async (req,res) => {
-//   const favorite = {meal_id} = req.body
-//   const meal = await Meal.findByPk(meal_id)
+//   const favorite = {story_id} = req.body
+//   const story = await Story.findByPk(story_id)
 // }
 
 const getUserStories = async (req,res) => {
   const id = req.params.userid
-  const meals = await Meal.findAll({
-    where: { createdby: id },
+  const stories = await Story.findAll({
+    where: { userId: id },
     raw: true
   })
-  res.send(meals)
+  res.send(stories)
 }
 
 
