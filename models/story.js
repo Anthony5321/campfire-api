@@ -5,10 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Story extends Model {
       static associate(models) {
-        Story.belongsTo(models.User, {
-          foreignKey: 'authorId',
-          as: 'author'
-        });
+        Story.belongsTo(models.User, { as: 'users', foreignKey: 'userId' });
         Story.hasMany(models.Vote, {
           foreignKey: 'storyId',
           as: 'votes'
@@ -16,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
     Story.init({
+      authorId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
       title: {
         type: DataTypes.STRING,
         allowNull: false

@@ -1,4 +1,4 @@
-const {User, Meal} = require('../models')
+const {User, Story, Vote} = require('../models')
 const middleware = require('../middleware')
 
 const Register = async (req, res) => {

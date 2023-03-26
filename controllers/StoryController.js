@@ -1,15 +1,16 @@
-const { Story } = require('../models');
+const { User, Story, Vote } = require('../models');
 
-const getStories = async (req, res, next) => {
+async function getStories(req, res) {
   try {
     const stories = await Story.findAll({
-      include: ['author', 'votes']
+      include: [{ model: User, as: 'users' }]
     });
-    res.json(stories);
+    res.status(200).json({ stories });
   } catch (err) {
-    next(err);
+    console.log(err);
+    res.status(500).json({ message: err.message });
   }
-};
+}
 
 const getStoryById = async (req, res, next) => {
   try {

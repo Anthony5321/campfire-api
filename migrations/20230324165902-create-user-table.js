@@ -11,7 +11,7 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
-      name: {
+      username: {
         type: Sequelize.STRING,
         allowNull: false
       },
