@@ -21,9 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      content: {
-        type: DataTypes.TEXT('long'),
-        allowNull: false
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      netLikes: {
+        type: DataTypes.STRING,
+        allowNull: true
       }
     }, {
       sequelize,
