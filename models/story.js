@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     class Story extends Model {
       static associate(models) {
         Story.belongsTo(models.User, { as: 'users', foreignKey: 'authorId' });
-        Story.hasMany(models.Vote, {
+        Story.hasMany(models.Snippet, {
           foreignKey: 'storyId',
-          as: 'votes'
+          as: 'snippets'
         });
       }
     }
@@ -25,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true
       },
-      netLikes: {
+      likes: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
       }
     }, {
       sequelize,

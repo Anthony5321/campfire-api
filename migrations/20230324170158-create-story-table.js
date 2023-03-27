@@ -9,10 +9,6 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
-      title: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       authorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -20,11 +16,15 @@ module.exports = {
           model: 'users',
           key: 'id'
         },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      content: {
-        type: Sequelize.TEXT('long'),
+      likes: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       createdAt: {
