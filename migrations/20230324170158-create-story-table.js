@@ -16,12 +16,16 @@ module.exports = {
           model: 'users',
           key: 'id'
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
       image: {
         type: Sequelize.STRING,
         allowNull: true
       },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+      title: {
+        type: Sequelize.STRING,
+        allowNull: true
       },
       likes: {
         type: Sequelize.INTEGER,

@@ -1,32 +1,31 @@
 'use strict';
-
-const { INTEGER } = require('sequelize');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('snippets', {
+    await queryInterface.createTable('joinTables', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      storyId: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      content: {
-        type: Sequelize.TEXT,
-        allowNull: true
-      },
       snippetId: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: true
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'snippets',
+          key: 'id'
+        }
+      },
+      storyId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'stories',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('snippets');
+    await queryInterface.dropTable('joinTables');
   }
 };

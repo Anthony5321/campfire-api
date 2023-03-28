@@ -5,6 +5,26 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Snippet extends Model {
     static associate(models) {
+      Snippet.belongsToMany(models.Snippet, {
+        as: 'children',
+        through: 'jointable',
+        foreignKey: 'parentSnippetId',
+        otherKey: 'childSnippetId'
+      });
+      Snippet.belongsToMany(models.Snippet, {
+        as: 'parents',
+        through: 'jointable',
+        foreignKey: 'childSnippetId',
+        otherKey: 'parentSnippetId'
+      });
+      Snippet.belongsTo(models.Story, {
+        foreignKey: 'storyId',
+        as: 'story'
+      });
+      // Snippet.belongsTo(Snippet, {
+      //   as: 'parent',
+      //   foreignKey: 'snippetId'
+      // });
     }
   }
   Snippet.init({
@@ -17,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     content: {
-      type: DataTypes.TEXT('long'),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     snippetId: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true
     }
   }, {
@@ -29,5 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Snippet',
     tableName: 'snippets'
   });
-  return Snippit;
+  
+  return Snippet;
 };

@@ -1,4 +1,4 @@
-const { User, Story, Vote } = require('../models');
+const { User, Story } = require('../models');
 const middleware = require('../middleware')
 
 async function getStories(req, res) {
@@ -24,7 +24,7 @@ const getStoryById = async (req, res, next) => {
     }
     res.json(story);
   } catch (err) {
-    next(err);
+    throw err;
   }
 };
 
@@ -47,8 +47,8 @@ const updateStory = async (req, res) => {
       { where: { id: req.params.id }, returning: true }
     )
     res.send(story)
-  } catch (error) {
-    throw error
+  } catch (err) {
+    throw err
   }
 }
 
