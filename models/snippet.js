@@ -1,32 +1,30 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Snippet extends Model {
     static associate(models) {
       Snippet.belongsToMany(models.Snippet, {
         as: 'children',
-        through: 'jointable',
+        through: 'joinTable',
         foreignKey: 'parentSnippetId',
-        otherKey: 'childSnippetId'
+        // otherKey: 'childSnippetId'
       });
+
       Snippet.belongsToMany(models.Snippet, {
         as: 'parents',
-        through: 'jointable',
+        through: 'joinTable',
         foreignKey: 'childSnippetId',
-        otherKey: 'parentSnippetId'
+        // otherKey: 'parentSnippetId'
       });
+
       Snippet.belongsTo(models.Story, {
         foreignKey: 'storyId',
         as: 'story'
       });
-      // Snippet.belongsTo(Snippet, {
-      //   as: 'parent',
-      //   foreignKey: 'snippetId'
-      // });
     }
   }
+
   Snippet.init({
     storyId: {
       type: DataTypes.STRING,
@@ -39,16 +37,12 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.TEXT,
       allowNull: true
-    },
-    snippetId: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: true
     }
   }, {
     sequelize,
     modelName: 'Snippet',
     tableName: 'snippets'
   });
-  
+
   return Snippet;
 };

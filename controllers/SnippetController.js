@@ -2,13 +2,20 @@ const { Snippet, Story } = require('../models');
 
 const createSnippet = async (req, res, next) => {
     try {
-        const { storyId, image, content, snippetId } = req.body;
-        const snippet = await Snippet.create({ storyId, image, content, snippetId });
-        res.status(201).json(snippet);
+      const { storyId, image, content, parentSnippetIds, childSnippetIds} = req.body;
+  
+      // create a new snippet
+      const newSnippet = await Snippet.create({
+        storyId,
+        image,
+        content,
+      });
+  
+      res.status(201).json(newSnippet);
     } catch (error) {
-        next(error);
+      next(error);
     }
-}
+  };
 
 const getSnippet = async (req, res, next) => {
     try {
@@ -50,7 +57,11 @@ const getAllSnippetsByStory = async (req, res, next) => {
 const getAllSnippetsBySnippetId = async (req, res, next) => {
     try {
         const snippets = await Snippet.findAll({
-            where: { snippetId: req.params.snippetId }
+            where: { id: req.params.snippetId },
+            include: [
+              { model: Snippet, as: 'children', through: { attributes: [] } },
+              { model: Snippet, as: 'parents', through: { attributes: [] } },
+            ]
         });
         res.json(snippets);
     } catch (error) {

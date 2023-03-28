@@ -1,43 +1,43 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('joinTables', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('joinTable', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      snippetId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
+        primaryKey: true,
+        autoIncrement: true
+      },
+      parentSnippetId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
           model: 'snippets',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
       },
-      storyId: {
+      childSnippetId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
+        allowNull: true,
         references: {
-          model: 'stories',
+          model: 'snippets',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
       },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('joinTables');
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('joinTable');
   }
 };

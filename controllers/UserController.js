@@ -79,11 +79,6 @@ const CheckSession = async (req, res) => {
   res.send(payload)
 }
 
-// const addVote = async (req,res) => {
-//   const favorite = {story_id} = req.body
-//   const story = await Story.findByPk(story_id)
-// }
-
 const getUserStories = async (req,res) => {
   const id = req.params.userid
   const stories = await Story.findAll({
