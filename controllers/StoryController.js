@@ -17,7 +17,6 @@ const getStoryById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const story = await Story.findByPk(id, {
-      include: ['authorId', 'votes']
     });
     if (!story) {
       return res.status(404).json({ error: 'Story not found' });
