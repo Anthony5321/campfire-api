@@ -80,14 +80,19 @@ const CheckSession = async (req, res) => {
 }
 
 const getUserStories = async (req,res) => {
-  const id = req.params.userid
-  const stories = await Story.findAll({
-    where: { userId: id },
-    raw: true
-  })
-  res.send(stories)
+  try {
+    const id = req.params.userid
+    console.log(req.params.userid);
+    const stories = await Story.findAll({
+      where: { authorId: id },
+      raw: true
+    })
+    res.send(stories)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Server Error')
+  }
 }
-
 
 module.exports = {
   Register,

@@ -6,7 +6,7 @@ const JoinController = require('../controllers/JoinController');
 
 // Define snippet routes
 router.post('/', SnippetController.createSnippet);
-router.get('/story/:storyId/:snippetId', SnippetController.getAllSnippetsByStory);
+router.get('/story/:storyId', SnippetController.getAllSnippetsByStory);
 router.get('/snippet/:snippetId', SnippetController.getAllSnippetsBySnippetId);
 router.get('/:id', SnippetController.getSnippet);
 router.put('/:id', SnippetController.updateSnippet);

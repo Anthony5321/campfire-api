@@ -2,13 +2,14 @@ const { Snippet, Story } = require('../models');
 
 const createSnippet = async (req, res, next) => {
     try {
-      const { storyId, image, content, parentSnippetIds, childSnippetIds} = req.body;
+      const { storyId, image, content, header, parentSnippetIds, childSnippetIds} = req.body;
   
       // create a new snippet
       const newSnippet = await Snippet.create({
         storyId,
         image,
         content,
+        header
       });
   
       res.status(201).json(newSnippet);
