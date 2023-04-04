@@ -47,7 +47,11 @@ const updateSnippet = async (req, res, next) => {
 const getAllSnippetsByStory = async (req, res, next) => {
     try {
         const snippets = await Snippet.findAll({
-            where: { storyId: req.params.storyId }
+            where: { storyId: req.params.storyId },
+            include: [
+                { model: Snippet, as: 'children', through: { attributes: [] } },
+                { model: Snippet, as: 'parents', through: { attributes: [] } },
+              ]
         });
         res.json(snippets);
     } catch (error) {
