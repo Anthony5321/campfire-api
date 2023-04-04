@@ -4,7 +4,6 @@ const middleware = require('../middleware')
 const Register = async (req, res) => {
   try {
     const { email, password, username } = req.body
-    console.log(email)
     let passwordDigest = await middleware.hashPassword(password)
     const user = await User.create({ email, password:passwordDigest, username })
     res.send(user)
@@ -65,7 +64,6 @@ const UpdatePassword = async (req, res) => {
 
 const getUser = async (req , res) => {
   try {
-    console.log(req.params.userid)
   const user = await User.findByPk(req.params.userid)
   return res.send(user)
   }catch (error) {
@@ -82,7 +80,6 @@ const CheckSession = async (req, res) => {
 const getUserStories = async (req,res) => {
   try {
     const id = req.params.userid
-    console.log(req.params.userid);
     const stories = await Story.findAll({
       where: { authorId: id },
       raw: true

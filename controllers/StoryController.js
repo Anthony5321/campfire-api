@@ -30,7 +30,6 @@ const getStoryById = async (req, res, next) => {
 
 const createStory = async (req, res) => {
   try {
-    console.log(req.body); // log the request body
     const story = await Story.create({...req.body})
     res.send(story)
   } catch (error) {

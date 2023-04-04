@@ -4,7 +4,6 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class JoinTable extends Model {
     static associate(models) {
-      // define association here
     }
   }
 

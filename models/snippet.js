@@ -8,14 +8,12 @@ module.exports = (sequelize, DataTypes) => {
         as: 'children',
         through: 'joinTable',
         foreignKey: 'parentSnippetId',
-        // otherKey: 'childSnippetId'
       });
 
       Snippet.belongsToMany(models.Snippet, {
         as: 'parents',
         through: 'joinTable',
         foreignKey: 'childSnippetId',
-        // otherKey: 'parentSnippetId'
       });
 
       Snippet.belongsTo(models.Story, {
