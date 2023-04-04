@@ -36,8 +36,8 @@ const updateSnippet = async (req, res, next) => {
         if (!snippet) {
             return res.status(404).json({ message: 'Snippet not found' });
         }
-        const { storyId, image, content } = req.body;
-        await snippet.update({ storyId, image, content });
+        const { storyId, image, content, header } = req.body;
+        await snippet.update({ storyId, image, content, header });
         res.json(snippet);
     } catch (error) {
         next(error);
