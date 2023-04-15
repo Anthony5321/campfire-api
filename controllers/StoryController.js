@@ -1,5 +1,6 @@
 const { User, Story } = require('../models');
 const middleware = require('../middleware')
+const { Op } = require('sequelize');
 
 async function getStories(req, res) {
   try {
