@@ -61,10 +61,30 @@ const deleteStory = async (req, res) => {
   }
 }
 
+const getStoriesByTitle = async (req, res) => {
+  try {
+    const { title } = req.query;
+    const stories = await Story.findAll({
+      where: {
+        title: {
+          [Op.like]: `%${title}%`
+        }
+      },
+      include: [{ model: User, as: 'users' }]
+    });
+    res.status(200).json({ stories });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  }
+}
+
+
 module.exports = {
   getStories,
   getStoryById,
   createStory,
   updateStory,
-  deleteStory
+  deleteStory,
+  getStoriesByTitle
 }
