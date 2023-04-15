@@ -64,7 +64,7 @@ const deleteStory = async (req, res) => {
 
 const getStoriesByTitle = async (req, res) => {
   try {
-    const titleName = req.params.title;
+    const titleName = req.query.title;
     const stories = await Story.findAll({
       where: {
         title: {

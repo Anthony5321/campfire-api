@@ -7,7 +7,7 @@ const storyController = require('../controllers/StoryController');
 router.get('/', storyController.getStories);
 router.post('/', middleware.verifyToken,  middleware.stripToken, storyController.createStory);
 router.get('/:id', storyController.getStoryById);
-router.get('/search', storyController.getStoriesByTitle);
+router.get('/search/:title', storyController.getStoriesByTitle);
 router.put('/:id', middleware.verifyToken,  middleware.stripToken, storyController.updateStory);
 router.delete('/:id', middleware.verifyToken,  middleware.stripToken, storyController.deleteStory);
 
