@@ -64,14 +64,13 @@ const deleteStory = async (req, res) => {
 
 const getStoriesByTitle = async (req, res) => {
   try {
-    const { title } = req.query;
+    const titleName = req.params.title;
     const stories = await Story.findAll({
       where: {
         title: {
-          [Op.like]: `%${title}%`
+          [Op.iLike]: `%${titleName}%`
         }
       },
-      include: [{ model: User, as: 'users' }]
     });
     res.status(200).json({ stories });
   } catch (err) {
